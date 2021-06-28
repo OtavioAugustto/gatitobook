@@ -8,6 +8,20 @@
       placeholder="E-mail"
       formControlName="email"
     />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.required &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail obrigatório"
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.email &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail no formato incorreto"
+    ></app-mensagem>
   </div>
   <div class="form-group">
     <input
@@ -16,6 +30,13 @@
       placeholder="Nome Completo"
       formControlName="fullName"
     />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('fullName')?.errors &&
+        novoUsuarioForm.get('fullName')?.touched
+      "
+      mensagem="Nome incorreto"
+    ></app-mensagem>
   </div>
   <div class="form-group">
     <input
@@ -24,6 +45,24 @@
       placeholder="Usuário"
       formControlName="userName"
     />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('userName')?.errors?.minusculo &&
+        novoUsuarioForm.get('userName')?.touched
+      "
+      mensagem="Usuário deve ser apenas com letra minuscula"
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('userName')?.errors?.required &&
+        novoUsuarioForm.get('userName')?.touched
+      "
+      mensagem="Nome de Usuário obrigatório"
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="novoUsuarioForm.get('userName')?.errors?.usuarioExistente"
+      mensagem="Usuário já existe!"
+    ></app-mensagem>
   </div>
   <div class="form-group">
     <input
@@ -32,9 +71,23 @@
       placeholder="Senha"
       formControlName="password"
     />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('password')?.errors?.required &&
+        novoUsuarioForm.get('password')?.touched
+      "
+      mensagem="Senha obrigatória"
+    ></app-mensagem>
+    <app-mensagem
+    *ngIf="novoUsuarioForm.errors?.senhaIgualUsuario"
+    mensagem="Senha deve ser diferente do nome de usuário"
+  >
+  </app-mensagem>
   </div>
 
-  <button type="submit" class="btn btn-primary btn-block">Confirmar Cadastro</button>
+  <button type="submit" class="btn btn-primary btn-block">
+    Confirmar Cadastro
+  </button>
 </form>
 
 <p>Já é um usuário?<a [routerLink]="['']"> Faça Login!</a></p>
